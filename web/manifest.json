@@ -1,11 +1,11 @@
 {
-    "name": "reflection",
-    "short_name": "reflection",
+    "name": "Furniture shop",
+    "short_name": "Furniture shop",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Save your progress",
+    "description": "Live in comfort",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

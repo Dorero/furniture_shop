@@ -2,7 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:reflection/theme.dart';
+import 'package:furniture_shop/theme.dart';
 
 void main() {
   runApp(const App());
@@ -14,6 +14,9 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: "/",
+      routes: {
+      },
       theme: AppTheme.theme(),
       home: Home(),
     );
@@ -318,10 +321,9 @@ class _PromotionsState extends State<Promotions> {
 
 class Dots extends StatelessWidget {
   final List<Color> colors;
-  final int dots;
 
   const Dots(
-      {Key? key, required List<Color> this.colors, required int this.dots})
+      {Key? key, required List<Color> this.colors})
       : super(key: key);
 
   @override
@@ -329,7 +331,7 @@ class Dots extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List<Widget>.generate(
-        dots,
+        colors.length,
         (int index) {
           return Container(
             width: 10,
@@ -415,7 +417,6 @@ class Products extends StatelessWidget {
                     Color(0xFFE6E6E6),
                     Color(0xFF959595)
                   ],
-                  dotsQuantity: 3,
                 ),
                 ProductView(
                   image: "assets/chair_second.png",
@@ -424,7 +425,6 @@ class Products extends StatelessWidget {
                     Color(0xFFEDA88E),
                     Color(0xFFE6E6E6),
                   ],
-                  dotsQuantity: 2,
                 )
               ],
             ),
@@ -437,7 +437,6 @@ class Products extends StatelessWidget {
 
 class ProductView extends StatelessWidget {
   final List<Color> dotsColors;
-  final int dotsQuantity;
   final String image;
   final int price;
 
@@ -445,83 +444,84 @@ class ProductView extends StatelessWidget {
       {Key? key,
       required this.image,
       required this.price,
-      required this.dotsColors,
-      required this.dotsQuantity})
+      required this.dotsColors})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(6.0),
-      child: Stack(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.3,
-            width: MediaQuery.of(context).size.height * 0.19,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
-                  spreadRadius: 2,
-                  blurRadius: 5,
-                  offset: Offset(0, 3),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.3,
-            width: MediaQuery.of(context).size.height * 0.2,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-            ),
-            child: Stack(
-              children: [
-                Positioned(
-                  left: 10,
-                  top: 15,
-                  child: Dots(
-                    colors: dotsColors,
-                    dots: dotsQuantity,
+    return GestureDetector(
+      onTap: () => print(1),
+      child: Padding(
+        padding: const EdgeInsets.all(6.0),
+        child: Stack(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height * 0.3,
+              width: MediaQuery.of(context).size.height * 0.19,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
                   ),
-                ),
-                Image.asset(image),
-                Positioned(
-                  bottom: 10,
-                  left: 10,
-                  width: MediaQuery.of(context).size.width * 0.35,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "\$$price",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Container(
-                        width: 50,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Icon(
-                              EvaIcons.heart,
-                              color: Colors.grey,
-                            ),
-                            Icon(
-                              Icons.shopping_cart,
-                              color: Colors.grey[800],
-                            )
-                          ],
+                ],
+              ),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.3,
+              width: MediaQuery.of(context).size.height * 0.2,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+              ),
+              child: Stack(
+                children: [
+                  Positioned(
+                    left: 10,
+                    top: 15,
+                    child: Dots(
+                      colors: dotsColors,
+                    ),
+                  ),
+                  Image.asset(image),
+                  Positioned(
+                    bottom: 10,
+                    left: 10,
+                    width: MediaQuery.of(context).size.width * 0.35,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "\$$price",
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                      )
-                    ],
-                  ),
-                )
-              ],
+                        Container(
+                          width: 50,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Icon(
+                                EvaIcons.heart,
+                                color: Colors.grey,
+                              ),
+                              Icon(
+                                Icons.shopping_cart,
+                                color: Colors.grey[800],
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
